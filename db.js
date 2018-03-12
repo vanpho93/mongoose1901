@@ -7,7 +7,3 @@ const singerSchema = new mongoose.Schema({
     link: { type: String, trim: true, required: true, unique: true }
 });
 const Singer = mongoose.model('Singer', singerSchema);
-
-Singer.findById('5aa662005e9d688cd99d4108')
-.then(singer => console.log(singer))
-.catch(error => console.log(error));
