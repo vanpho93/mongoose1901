@@ -8,31 +8,6 @@ const singerSchema = new mongoose.Schema({
 });
 const Singer = mongoose.model('Singer', singerSchema);
 
-/* create new doc
-const singer = new Singer({ 
-    name: 'Duc Phuc', 
-    image: '1.png', 
-    link: 'https://fb.com/duc-phuc' 
-});
-
-singer.save()
-.then(s => console.log(s))
+Singer.findById('5aa662005e9d688cd99d4108')
+.then(singer => console.log(singer))
 .catch(error => console.log(error));
-
-Singer.insertMany(
-    [
-        { 
-            name: 'Erik', 
-            image: '2.png', 
-            link: 'https://fb.com/erik' 
-        },
-        { 
-            name: 'Hoa Minzy', 
-            image: '3.png', 
-            link: 'https://fb.com/hoa-minzy' 
-        }
-    ]
-)
-.then(s => console.log(s))
-.catch(error => console.log(error));
-*/
