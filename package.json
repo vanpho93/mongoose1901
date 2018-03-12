@@ -1,0 +1,11 @@
+{
+  "name": "mongoose1901",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vanpho93/mongoose1901.git",
+  "author": "Van Pho Nguyen <vanpho02@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.0.9"
+  }
+}
