@@ -1,7 +1,5 @@
 const express = require('express');
-const multer = require('multer');
-
-const upload = multer({ dest: 'public/' });
+const { upload } = require('./uploadConfig');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -11,6 +9,7 @@ app.use(express.static('/public'));
 app.get('/', (req, res) => res.render('upload'));
 
 app.post('/upload', upload.single('singerImage'), (req, res) => {
+    // console.log(req.file);
     res.send('OK');
 });
 
