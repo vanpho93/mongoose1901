@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const reload = require('reload');
 const parser = require('body-parser').urlencoded({ extended: false });
@@ -19,7 +20,10 @@ app.get('/', (req, res) => {
 app.get('/remove/:id', (req, res) => {
     const { id } = req.params;
     Singer.findByIdAndRemove(id)
-    .then(() => res.redirect('/'))
+    .then(singer => {
+        if (singer.image !== 'default.png') fs.unlinkSync(__dirname + '/public/' + singer.image);
+        res.redirect('/');
+    })
     .catch(error => res.send(error));
 });
 
@@ -32,14 +36,19 @@ app.post('/add', upload.single('image'), (req, res) => {
     .catch(error => res.send(error));
 });
 
-app.post('/update/:id', parser, (req, res) => {
-    const { name, link, image } = req.body;
+app.post('/update/:id', upload.single('image'), (req, res) => {
+    const { name, link } = req.body;
     const { id } = req.params;
+    const updateObj = { name, link };
+    if (req.file) updateObj.image = req.file.filename;
     // Singer.findByIdAndUpdate
     // Singer.findOneAndUpdate
     // Singer.updateMany
-    Singer.findByIdAndUpdate(id, { name, link, image })
-    .then(() => res.redirect('/'))
+    Singer.findByIdAndUpdate(id, updateObj)
+    .then(singer => {
+        if (singer.image !== 'default.png') fs.unlinkSync(__dirname + '/public/' + singer.image);
+        res.redirect('/');
+    })
     .catch(error => res.send(error));
 });
 
