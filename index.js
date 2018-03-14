@@ -15,6 +15,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/remove/:id', (req, res) => {
+    // Singer.findByIdAndRemove(id)
+    // Singer.findOneAndRemove({})
+    // Singer.remove();
+    const { id } = req.params;
+    Singer.findByIdAndRemove(id)
+    .then(() => res.redirect('/'))
+    .catch(error => res.send(error));
 });
 
 app.post('/add', parser, (req, res) => {
@@ -24,6 +31,7 @@ app.post('/add', parser, (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => res.send(error));
 });
+
 app.post('/update/:id', parser, (req, res) => {
 });
 
