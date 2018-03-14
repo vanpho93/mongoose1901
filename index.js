@@ -15,9 +15,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/remove/:id', (req, res) => {
-    // Singer.findByIdAndRemove(id)
-    // Singer.findOneAndRemove({})
-    // Singer.remove();
     const { id } = req.params;
     Singer.findByIdAndRemove(id)
     .then(() => res.redirect('/'))
@@ -33,6 +30,14 @@ app.post('/add', parser, (req, res) => {
 });
 
 app.post('/update/:id', parser, (req, res) => {
+    const { name, link, image } = req.body;
+    const { id } = req.params;
+    // Singer.findByIdAndUpdate
+    // Singer.findOneAndUpdate
+    // Singer.updateMany
+    Singer.findByIdAndUpdate(id, { name, link, image })
+    .then(() => res.redirect('/'))
+    .catch(error => res.send(error));
 });
 
 app.get('/add', (req, res) => res.render('add'));
