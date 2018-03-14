@@ -16,6 +16,6 @@
     "reload": "^2.2.2"
   },
   "scripts": {
-    "server": "nodemon server.js -e js,ejs,css"
+    "server": "nodemon index.js -e js,ejs,css"
   }
 }

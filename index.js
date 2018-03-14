@@ -2,11 +2,13 @@ const express = require('express');
 const reload = require('reload');
 const parser = require('body-parser').urlencoded({ extended: false });
 
+const { upload } = require('./uploadConfig');
 const { Singer } = require('./db');
 
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
     Singer.find({})
@@ -21,8 +23,9 @@ app.get('/remove/:id', (req, res) => {
     .catch(error => res.send(error));
 });
 
-app.post('/add', parser, (req, res) => {
-    const { name, link, image } = req.body;
+app.post('/add', upload.single('image'), (req, res) => {
+    const { name, link } = req.body;
+    const image = req.file ? req.file.filename: 'default.png';
     const singer = new Singer({ name, link, image });
     singer.save()
     .then(() => res.redirect('/'))
