@@ -41,9 +41,6 @@ app.post('/update/:id', upload.single('image'), (req, res) => {
     const { id } = req.params;
     const updateObj = { name, link };
     if (req.file) updateObj.image = req.file.filename;
-    // Singer.findByIdAndUpdate
-    // Singer.findOneAndUpdate
-    // Singer.updateMany
     Singer.findByIdAndUpdate(id, updateObj)
     .then(singer => {
         if (singer.image !== 'default.png') fs.unlinkSync(__dirname + '/public/' + singer.image);
